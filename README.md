@@ -39,38 +39,33 @@ The Urine Strip Analyzer is a web application that allows users to upload images
 
 Create and activate a virtual environment:
 
-bash
-Copy code
+```bash
 python -m venv venv
 source venv/bin/activate # On Windows use `venv\Scripts\activate`
+```
 
 3. **Install Dependencies**
 
 Install the required Python dependencies:
 
-bash
-Copy code
+```bash
 pip install -r requirements.txt
-For frontend dependencies, navigate to the frontend directory and install:
-
-bash
-Copy code
-cd frontend
-npm install
+```
 
 4. **Database Migrations**
 
 Apply database migrations:
 
-bash
-Copy code
+```bash
 python manage.py migrate 5. **Run the Server**
+```
 
 Start the Django development server:
 
-bash
-Copy code
+```bash
 python manage.py runserver
+```
+
 Navigate to http://127.0.0.1:8000/ to view the application.
 
 6. **Upload an Image**
