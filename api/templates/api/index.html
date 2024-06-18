@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Urine Strip Analyzer</title>
+  </head>
+  <body>
+    <h1>Upload Urine Strip Image</h1>
+    <form id="upload-form" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="file" id="image" name="image" accept="image/*" />
+      <button type="submit">Upload</button>
+    </form>
+    <pre id="result"></pre>
+
+    <script>
+      document
+        .getElementById("upload-form")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const formData = new FormData();
+          formData.append("image", document.getElementById("image").files[0]);
+
+          // Retrieve the CSRF token from the form
+          const csrfToken = document.querySelector(
+            'input[name="csrfmiddlewaretoken"]'
+          ).value;
+
+          // Log the FormData contents
+          for (let [key, value] of formData.entries()) {
+            console.log(key, value);
+          }
+
+          const response = await fetch("/api/upload/", {
+            method: "POST",
+            headers: {
+              "X-CSRFToken": csrfToken, // Include the CSRF token in the request headers
+            },
+            body: formData,
+          });
+
+          const result = await response.json();
+          document.getElementById("result").textContent = JSON.stringify(
+            result,
+            null,
+            2
+          );
+        });
+    </script>
+  </body>
+</html>
